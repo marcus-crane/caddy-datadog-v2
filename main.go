@@ -23,12 +23,21 @@
  */
 package caddy_datadog
 
-import "github.com/caddyserver/caddy"
+import (
+	"github.com/caddyserver/caddy/v2"
+)
 
 // Caddy plugin entry point.
 func init() {
-	caddy.RegisterPlugin("datadog", caddy.Plugin{
-		ServerType: "http",
-		Action:     initializeDatadogHQ,
-	})
+	caddy.RegisterModule(Datadog{})
+}
+
+type Datadog struct {
+}
+
+func (Datadog) CaddyModule() caddy.ModuleInfo {
+	return caddy.ModuleInfo{
+		ID:  "http.datadog",
+		New: func() caddy.Module { return new(Datadog) },
+	}
 }
