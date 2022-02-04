@@ -1,0 +1,13 @@
+{
+	http_port 8080
+	log {
+		output stdout
+		format json
+	}
+	admin off
+	auto_https off
+}
+
+http://example.com {
+	redir * https://example.com{path} 302
+}
